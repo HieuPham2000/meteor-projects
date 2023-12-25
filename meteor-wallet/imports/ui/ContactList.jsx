@@ -12,7 +12,7 @@ export default function ContactList() {
       <h3>Contact List</h3>
       <ul>
         {contacts.map((contact) => (
-          <li>
+          <li key={contact.email}>
             {contact.name} - {contact.email} - {contact.imageUrl}
           </li>
         ))}
