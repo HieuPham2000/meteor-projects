@@ -3,6 +3,10 @@ import { ContactsCollection } from './ContactsCollection';
 
 Meteor.methods({
   'contacts.insert'({ name, email, imageUrl }) {
-    ContactsCollection.insert({ name, email, imageUrl });
+    if(!name) {
+      throw new Meteor.Error('Name is required.');
+    }
+
+    ContactsCollection.insert({ name, email, imageUrl, createdAt: new Date() });
   },
 });

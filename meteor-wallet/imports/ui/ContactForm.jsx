@@ -1,20 +1,46 @@
 import React, { useState } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { ErrorAlert } from './components/ErrorAlert';
+import { SuccessAlert } from './components/SuccessAlert';
 
 export default function ContactForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+
+  const showError = ({ message }) => {
+    setError(message);
+    setTimeout(() => {
+      setError('');
+    }, 5000);
+  };
+
+  const showSuccess = ({ message }) => {
+    setSuccess(message);
+    setTimeout(() => {
+      setSuccess('');
+    }, 5000);
+  };
 
   const saveContact = () => {
-    Meteor.call('contacts.insert', { name, email, imageUrl });
-    setName('');
-    setEmail('');
-    setImageUrl('');
+    Meteor.call('contacts.insert', { name, email, imageUrl }, (err) => {
+      if (err) {
+        showError({ message: err.error });
+      } else {
+        setName('');
+        setEmail('');
+        setImageUrl('');
+        showSuccess({ message: 'Contact saved.' });
+      }
+    });
   };
 
   return (
     <form className="mt-6">
+      {error && <ErrorAlert message={error} />}
+      {success && <SuccessAlert message={success} />}
       <div className="grid grid-cols-6 gap-6">
         <div className="col-span-6 sm:col-span-6 lg:col-span-2">
           <label htmlFor="name" className="block text-sm font-medium text-gray-700">

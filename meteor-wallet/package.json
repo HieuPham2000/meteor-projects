@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.23.5",
+    "@heroicons/react": "^1.0.6",
     "autoprefixer": "^10.4.0",
     "meteor-node-stubs": "^1.2.7",
     "postcss": "^8.3.1",
