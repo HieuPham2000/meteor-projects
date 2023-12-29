@@ -1,7 +1,8 @@
 import React, { memo } from 'react';
-import { ContactsCollection } from '/imports/api/ContactsCollection';
-import { useSubscribe, useFind } from 'meteor/react-meteor-data';
 import { Meteor } from 'meteor/meteor';
+import { useSubscribe, useFind } from 'meteor/react-meteor-data';
+import { ContactsCollection } from '/imports/api/ContactsCollection';
+import { Loading } from './components/Loading';
 
 export default function ContactList() {
   const isLoading = useSubscribe('contacts');
@@ -23,6 +24,7 @@ export default function ContactList() {
           <div className="min-w-0 flex-1">
             <p className="text-sm font-medium text-gray-900 truncate">{contact.name}</p>
             <p className="text-sm font-medium text-gray-500 truncate">{contact.email}</p>
+            <p className="text-sm font-medium text-gray-500 truncate">{contact.walletId}</p>
           </div>
           <div>
             <button
@@ -39,13 +41,7 @@ export default function ContactList() {
   });
 
   if (isLoading()) {
-    return (
-      <div>
-        <div className="mt-10">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Loading...</h3>
-        </div>
-      </div>
-    );
+    return <Loading />;
   }
 
   return (
