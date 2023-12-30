@@ -21,19 +21,22 @@ export const Wallet = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const addTransaction = () => {
-    console.log('New transaction ', amount, destinationWallet);
     Meteor.call(
       'transactions.insert',
       {
         isTransferring,
         sourceWalletId: wallet._id,
         // @ts-ignore
-        destinationWalletId: destinationWallet?.walletId || '',
+        destinationWalletId: destinationWallet?.walletId,
         amount: Number(amount) || 0,
       },
       (errorResponse) => {
         if (errorResponse) {
-          setErrorMessage(errorResponse.error);
+          if (errorResponse.details && errorResponse.details.length) {
+            setErrorMessage(errorResponse.details[0]?.message);
+          } else {
+            setErrorMessage(errorResponse.error);
+          }
         } else {
           setOpen(false);
           setDestinationWallet({});
