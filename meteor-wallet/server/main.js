@@ -7,47 +7,12 @@ import '/imports/api/methods/TransactionsMethod';
 import '/imports/api/publications/ContactsPublication';
 import '/imports/api/publications/WalletsPublication';
 import { WalletsCollection } from '/imports/api/collections/WalletsCollection';
-import SimpleSchema from 'simpl-schema';
 import '/imports/infra/CustomError';
-
-// const currencySchema = new SimpleSchema({
-//   balance: {
-//     type: Number,
-//     defaultValue: 0,
-//   },
-//   currency: {
-//     type: String,
-//     allowedValues: ['USD', 'EUR', 'VND'],
-//     defaultValue: 'VND'
-//   },
-// });
-
-// const walletSchema = new SimpleSchema({
-//   currencies: Array,
-//   'currencies.$': currencySchema,
-//   createdAt: Date
-// });
-
-const walletSchema = new SimpleSchema({
-  balance: {
-    type: Number,
-    defaultValue: 0,
-  },
-  currency: {
-    type: String,
-    allowedValues: ['USD', 'VND'],
-    defaultValue: 'VND',
-  },
-  createdAt: Date,
-});
 
 Meteor.startup(() => {
   if (!WalletsCollection.find().count()) {
-    const walletData = {
+    WalletsCollection.insert({
       createdAt: new Date(),
-    };
-    const cleanedData = walletSchema.clean(walletData);
-    walletSchema.validate(cleanedData);
-    WalletsCollection.insert(cleanedData);
+    });
   }
 });
