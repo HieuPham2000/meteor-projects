@@ -50,5 +50,16 @@ const ContactsSchema = new SimpleSchema(
   },
 );
 
+// Có thể cài "aldeed:simple-schema"
+// Rồi import: import SimpleSchema from 'meteor/aldeed:simple-schema';
+// Khi đó có thể dùng SimpleSchema.RegEx.Email, SimpleSchema.RegEx.Id 
+// (simpl-schema đã remove built-in regular expression vì DDoS security risks)
+
+// Ngoài ra có thể custom error message như sau:
+// ContactsSchema.messageBox.messages({
+//   'regEx email': '[label] is not a valid email address',
+//   'badUrl imageUrl': '[label] is not a valid URL',
+// });
+
 // @ts-ignore
 ContactsCollection.attachSchema(ContactsSchema);
