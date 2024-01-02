@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { check } from 'meteor/check';
-import { TransactionsCollection } from './TransactionsCollection';
+import { TransactionsCollection } from '../collections/TransactionsCollection';
 import SimpleSchema from 'simpl-schema';
 
 Meteor.methods({
@@ -15,7 +15,7 @@ Meteor.methods({
       amount: {
         type: Number,
         min: 0,
-        exclusiveMin: true
+        exclusiveMin: true,
       },
     });
 

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Modal } from './components/Modal';
 import { Meteor } from 'meteor/meteor';
 import { useSubscribe, useFind } from 'meteor/react-meteor-data';
-import { ContactsCollection } from '/imports/api/ContactsCollection';
-import { WalletsCollection } from '/imports/api/WalletsCollection';
+import { ContactsCollection } from '/imports/api/collections/ContactsCollection';
+import { WalletsCollection } from '/imports/api/collections/WalletsCollection';
 import { Loading } from './components/Loading';
 import { SelectContact } from './components/SelectContact';
 
