@@ -1,13 +1,16 @@
+import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { RoutePaths } from './RoutePaths';
 import { ErrorAlert } from './components/ErrorAlert';
 
-export const SignUp = () => {
+export const Access = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+  const [isSignUp, setIsSignUp] = useState(true);
+
   const signUp = () => {
     Accounts.createUser(
       {
@@ -25,10 +28,23 @@ export const SignUp = () => {
       },
     );
   };
+
+  const signIn = () => {
+    Meteor.loginWithPassword(email, password, (err) => {
+      if (err) {
+        console.error('Error signing in the user: ', err);
+        setError(err);
+        return;
+      }
+      setError(null);
+      navigate(RoutePaths.HOME);
+    });
+  };
+
   return (
     <div className="flex flex-col items-center">
-      <h3 className="px-3 py-2 text-lg text-base font-medium">Sign Up</h3>
-      <form className="mt-6">
+      <h3 className="px-3 py-2 text-lg text-base font-medium">{isSignUp ? 'Sign Up' : 'Sign In'}</h3>
+      <form className="flex flex-col mt-6">
         {error && <ErrorAlert message={error.reason || 'Unknown error.'} />}
         <div className="flex flex-col space-y-2">
           <div>
@@ -57,7 +73,7 @@ export const SignUp = () => {
             />
           </div>
         </div>
-        <div className="px-2 py-3 text-right">
+        <div className="flex justify-center py-3">
           <button
             type="button"
             onClick={() => navigate(RoutePaths.HOME)}
@@ -65,13 +81,29 @@ export const SignUp = () => {
           >
             Back to Home
           </button>
-          <button
-            type="button"
-            onClick={signUp}
-            className="ml-4 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-          >
-            Sign up
-          </button>
+          {isSignUp && (
+            <button
+              type="button"
+              onClick={signUp}
+              className="ml-4 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+            >
+              Sign up
+            </button>
+          )}
+          {!isSignUp && (
+            <button
+              type="button"
+              onClick={signIn}
+              className="ml-4 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
+            >
+              Sign in
+            </button>
+          )}
+        </div>
+        <div className="flex justify-center py-3">
+          <a className="cursor-pointer text-indigo-800 hover:text-indigo-600" onClick={() => setIsSignUp(!isSignUp)}>
+            {isSignUp ? 'If you already have an account, click here' : `If you don't have an account, click here`}
+          </a>
         </div>
       </form>
     </div>

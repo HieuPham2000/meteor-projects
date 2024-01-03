@@ -22,7 +22,7 @@ export const Header = () => {
 
             <div>
               {!isLoadingLoggedUser && !loggedUser && (
-                <button type="button" className="text-white font-bold" onClick={() => navigate(RoutePaths.SIGN_UP)}>
+                <button type="button" className="text-white font-bold" onClick={() => navigate(RoutePaths.ACCESS)}>
                   Sign Up
                 </button>
               )}
