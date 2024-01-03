@@ -4,10 +4,15 @@ import SimpleSchema from 'simpl-schema';
 
 Meteor.methods({
   'transactions.insert'(args) {
+    const { userId } = this;
+    if (!userId) {
+      throw new Meteor.Error('Access denied.');
+    }
+
     const schema = new SimpleSchema({
       isTransferring: Boolean,
       sourceWalletId: String,
-      destinationWalletId: {
+      destinationContactId: {
         type: String,
         optional: !args.isTransferring,
       },
@@ -20,14 +25,15 @@ Meteor.methods({
 
     schema.validate(args);
 
-    const { isTransferring, sourceWalletId, destinationWalletId, amount } = args;
+    const { isTransferring, sourceWalletId, destinationContactId, amount } = args;
 
     TransactionsCollection.insert({
       type: isTransferring ? TRANSFER_TYPE : ADD_TYPE,
       sourceWalletId,
-      destinationWalletId: isTransferring ? destinationWalletId : null,
+      destinationContactId: isTransferring ? destinationContactId : null,
       amount,
       createdAt: new Date(),
+      userId,
     });
   },
 });

@@ -14,7 +14,6 @@ TransactionsCollection.before.insert(function (userId, doc) {
     const sourceWallet = WalletsCollection.findOne(doc.sourceWalletId);
 
     // TODO: tạm thời chưa check destinationWallet, vì hiện tại chưa xử lý (đang fix tạo 1 wallet duy nhất khi run app)
-    // const destinationWallet = WalletsCollection.findOne(doc.destinationWalletId);
 
     if (!sourceWallet) {
       throw new Meteor.Error('Source wallet not found.');
@@ -32,9 +31,12 @@ TransactionsCollection.before.insert(function (userId, doc) {
       $inc: { balance: -doc.amount },
     });
 
-    WalletsCollection.update(doc.destinationWalletId, {
-      $inc: { balance: doc.amount },
-    });
+    // Hiện tại tạm chuyển sang dùng destinationContactId => chưa xác định được destinationWalletId, find sẽ không đúng
+    // WalletsCollection.update(doc.destinationContactId, {
+    //   $inc: { balance: doc.amount },
+    // });
+
+
   }
 
   if (doc.type === ADD_TYPE) {
@@ -59,7 +61,7 @@ const TransactionsSchema = new SimpleSchema({
     type: String,
     // regex Id
   },
-  destinationWalletId: {
+  destinationContactId: {
     type: String,
     optional: true,
     // regex Id
@@ -71,6 +73,9 @@ const TransactionsSchema = new SimpleSchema({
   },
   createdAt: {
     type: Date,
+  },
+  userId: {
+    type: String,
   },
 });
 

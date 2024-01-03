@@ -35,6 +35,9 @@ const WalletsSchema = new SimpleSchema({
   createdAt: {
     type: Date
   },
+  userId: {
+    type: String
+  }
 });
 
 // @ts-ignore

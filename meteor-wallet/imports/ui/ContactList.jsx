@@ -5,7 +5,7 @@ import { ContactsCollection } from '/imports/api/collections/ContactsCollection'
 import { Loading } from './components/Loading';
 
 export default function ContactList() {
-  const isLoading = useSubscribe('contacts');
+  const isLoading = useSubscribe('myContacts');
 
   const contacts = useFind(() => ContactsCollection.find({}, { sort: { createdAt: -1 } }));
 
