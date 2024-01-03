@@ -11,7 +11,8 @@ export const Access = () => {
   const [error, setError] = useState(null);
   const [isSignUp, setIsSignUp] = useState(false);
 
-  const signUp = () => {
+  const signUp = (e) => {
+    e.preventDefault();
     Accounts.createUser(
       {
         email,
@@ -29,7 +30,8 @@ export const Access = () => {
     );
   };
 
-  const signIn = () => {
+  const signIn = (e) => {
+    e.preventDefault();
     Meteor.loginWithPassword(email, password, (err) => {
       if (err) {
         console.error('Error signing in the user: ', err);
@@ -83,7 +85,7 @@ export const Access = () => {
           </button>
           {isSignUp && (
             <button
-              type="button"
+              type="submit"
               onClick={signUp}
               className="ml-4 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
             >
@@ -92,7 +94,7 @@ export const Access = () => {
           )}
           {!isSignUp && (
             <button
-              type="button"
+              type="submit"
               onClick={signIn}
               className="ml-4 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
             >

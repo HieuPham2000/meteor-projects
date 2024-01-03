@@ -10,7 +10,8 @@ export const ResetPassword = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
-  const resetPassword = () => {
+  const resetPassword = (e) => {
+    e.preventDefault();
     Accounts.resetPassword(token, password, (err) => {
       if (err) {
         console.error('Error trying to reset the password', err);
@@ -53,7 +54,7 @@ export const ResetPassword = () => {
           </button>
 
           <button
-            type="button"
+            type="submit"
             onClick={resetPassword}
             className="ml-4 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
           >
