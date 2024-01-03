@@ -105,6 +105,11 @@ export const Access = () => {
             {isSignUp ? 'If you already have an account, click here' : `If you don't have an account, click here`}
           </a>
         </div>
+        <div className="flex justify-center py-3">
+          <a className="cursor-pointer text-indigo-800 hover:text-indigo-600" onClick={() => navigate(RoutePaths.FORGOT_PASSWORD)}>
+            Forgot Password?
+          </a>
+        </div>
       </form>
     </div>
   );

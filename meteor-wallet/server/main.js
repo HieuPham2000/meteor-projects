@@ -8,6 +8,7 @@ import '/imports/api/publications/ContactsPublication';
 import '/imports/api/publications/WalletsPublication';
 import { WalletsCollection } from '/imports/api/collections/WalletsCollection';
 import '/imports/infra/CustomError';
+import '/imports/infra/accounts';
 
 Meteor.startup(() => {
   if (!WalletsCollection.find().count()) {
@@ -15,4 +16,13 @@ Meteor.startup(() => {
       createdAt: new Date(),
     });
   }
+  if(!process.env.MAIL_URL) {
+    console.log('process.env.MAIL_URL is required');
+  }
+  
+  // Khai báo ở đây
+  // process.env.MAIL_URL="smtp://user:pass@yourservice:587";
+
+  // Hoặc chạy cmd: MY_ENV=xxx meteor --port 3000
+  // Hoặc chạy file command.sh
 });
