@@ -14,6 +14,9 @@ import '/imports/infra/roles';
 Meteor.startup(() => {
   if (!process.env.MAIL_URL) {
     console.log('process.env.MAIL_URL is required');
+
+    // Tạm fix MAIL_URL
+    process.env.MAIL_URL = 'smtp://ardith.gutmann@ethereal.email:n92gpZYpGFCas9mA8A@smtp.ethereal.email:587';
   }
 
   // Khai báo ở đây
