@@ -35,8 +35,6 @@ TransactionsCollection.before.insert(function (userId, doc) {
     // WalletsCollection.update(doc.destinationContactId, {
     //   $inc: { balance: doc.amount },
     // });
-
-
   }
 
   if (doc.type === ADD_TYPE) {
@@ -48,6 +46,37 @@ TransactionsCollection.before.insert(function (userId, doc) {
 
     WalletsCollection.update(doc.sourceWalletId, {
       $inc: { balance: doc.amount },
+    });
+  }
+});
+
+// @ts-ignore
+TransactionsCollection.before.remove(function (userId, doc) {
+  if (doc.type === TRANSFER_TYPE) {
+    const sourceWallet = WalletsCollection.findOne(doc.sourceWalletId);
+
+    if (!sourceWallet) {
+      throw new Meteor.Error('Source wallet not found.');
+    }
+
+    WalletsCollection.update(doc.sourceWalletId, {
+      $inc: { balance: doc.amount },
+    });
+  }
+
+  if (doc.type === ADD_TYPE) {
+    const sourceWallet = WalletsCollection.findOne(doc.sourceWalletId);
+
+    if (!sourceWallet) {
+      throw new Meteor.Error('Source wallet not found.');
+    }
+
+    if (sourceWallet.balance < doc.amount) {
+      throw new Meteor.Error('Insufficient funds', `Can't Remove the transaction because of Insufficient funds.`);
+    }
+
+    WalletsCollection.update(doc.sourceWalletId, {
+      $inc: { balance: -doc.amount },
     });
   }
 });

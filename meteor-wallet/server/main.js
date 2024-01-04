@@ -4,10 +4,12 @@ import '/imports/api/collections/WalletsCollection';
 import '/imports/api/collections/TransactionsCollection';
 import '/imports/api/methods/ContactsMethod';
 import '/imports/api/methods/TransactionsMethod';
+import '/imports/api/methods/RolesMethod';
 import '/imports/api/publications/ContactsPublication';
 import '/imports/api/publications/WalletsPublication';
 import '/imports/infra/CustomError';
 import '/imports/infra/accounts';
+import '/imports/infra/roles';
 
 Meteor.startup(() => {
   if (!process.env.MAIL_URL) {
