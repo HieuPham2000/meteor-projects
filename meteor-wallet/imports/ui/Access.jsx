@@ -108,8 +108,19 @@ export const Access = () => {
           </a>
         </div>
         <div className="flex justify-center py-3">
-          <a className="cursor-pointer text-indigo-800 hover:text-indigo-600" onClick={() => navigate(RoutePaths.FORGOT_PASSWORD)}>
+          <a
+            className="cursor-pointer text-indigo-800 hover:text-indigo-600"
+            onClick={() => navigate(RoutePaths.FORGOT_PASSWORD)}
+          >
             Forgot Password?
+          </a>
+        </div>
+        <div className="flex justify-center py-3">
+          <a
+            className="cursor-pointer text-indigo-800 hover:text-indigo-600"
+            onClick={() => navigate(RoutePaths.ACCESS_OTHER)}
+          >
+            Sign in another way?
           </a>
         </div>
       </form>

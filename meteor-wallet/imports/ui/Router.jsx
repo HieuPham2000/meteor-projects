@@ -10,6 +10,7 @@ import { AdminOnly } from './components/AdminOnly';
 import { LoggedUserOnly } from './components/LoggedUserOnly';
 import { AnonymousOnly } from './components/AnonymousOnly';
 import { RemoveTransaction } from './RemoveTransaction';
+import { AccessOther } from './AccessOther';
 
 export const Router = () => (
   <Routes>
@@ -26,6 +27,14 @@ export const Router = () => (
       element={
         <AnonymousOnly>
           <Access />
+        </AnonymousOnly>
+      }
+    />
+    <Route
+      path={RoutePaths.ACCESS_OTHER}
+      element={
+        <AnonymousOnly>
+          <AccessOther />
         </AnonymousOnly>
       }
     />

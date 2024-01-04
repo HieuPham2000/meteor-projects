@@ -24,3 +24,4 @@ matb33:collection-hooks
 accounts-password
 quave:logged-user-react
 alanning:roles
+quave:accounts-passwordless-react

@@ -1,5 +1,6 @@
 accounts-base@2.2.9
 accounts-password@2.4.0
+accounts-passwordless@2.1.4
 alanning:roles@3.6.1
 aldeed:collection2@3.5.0
 allow-deny@1.1.1
@@ -59,6 +60,7 @@ mongo-id@1.0.8
 npm-mongo@4.17.2
 ordered-dict@1.1.0
 promise@0.12.2
+quave:accounts-passwordless-react@2.1.0
 quave:logged-user-react@1.1.0
 raix:eventemitter@1.0.0
 random@1.2.1
