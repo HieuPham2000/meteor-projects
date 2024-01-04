@@ -25,3 +25,5 @@ accounts-password
 quave:logged-user-react
 alanning:roles
 quave:accounts-passwordless-react
+service-configuration
+accounts-google
